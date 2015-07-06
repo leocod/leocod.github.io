@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <!--
+	HTML5 Example: Image Processing 
+	"Brightness" Effect (Color Offset)
+	2013 Oliver Lietz / Juergen Lohr, Beuth-Hochschule Berlin
+	-->
+	
+	
+    <!-- Page Style -->
+    <style>
+        body
+        {
+            background: black;
+            color: #CCCCCC;
+			font-family: sans-serif;
+        }
+		h1 { font-size:1.7em; font-weight:normal; padding:0 0 0 8px; }
+    </style>
+    
+    <!-- Javascript image processing -->
+	<script type="text/javascript" src="script/processor.js"></script>
+    
+</head>
+<body>
+	<h1>Chroma-Key HTML5 Example - Lohr/Lietz</h1>
+    <div>
+
+		<!-- video container - run javascript doLoad() when ready -->
+        <video id="video" muted="true" width="320" height="320" autobuffer="true" controls="true" tabindex="0" onloadedmetadata="processor.doLoad()">
+
+			<!-- webm file for firefox, chrome -->
+			<source src="../assets/v2b.webm" type="video/webm" />
+
+			<!-- mp4 file for safari, IE -->
+			<source src="../assets/v2b.mp4" type="video/mp4" />
+
+			<!-- Alternate content: just print a message, no video available -->
+			No HTML5-Video support? Try a newer browser! (Opera11, IE9, Firefox4, Safari5)
+
+        </video>
+
+		<!-- canvas container for resulting image -->
+        <canvas id="c1"></canvas>
+
+	</div>
+	
+	Brightness (Color Offset): <input id="color_offset" type="range"  min="-100" max="100" onchange="processor.change_color_offset()"/>
+	
+	<!-- camera button and script -->
+    <hr>
+	<a href="#" onclick="startCam()">Start Camera</a>
+    <script type="text/javascript" src="script/camera.js"></script>
+	
+	<!-- log area to display information from javascript -->
+    <hr>
+	<div id="log">
+	</div>
+
+<br>
+<br>
+</body>
+</html>
