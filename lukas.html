@@ -1,0 +1,81 @@
+
+<!doctype html>
+<html class="no-js" lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MMP &ndash; 5. Übung: Differenzcodierung mit JavaScript</title>
+    <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="../../styles/vendor/foundation/css/foundation.css" />
+    <link rel="stylesheet" type="text/css" href="../../styles/screen.css" />
+</head>
+<body>
+
+    <div class="row">
+        &nbsp;
+    </div>
+
+    <div class="row">
+        <div class="large-12 columns">
+
+            <h2>5. Übung: Differenzcodierung mit JavaScript</h2>
+            <h5 class="subheader">Bearbeitet von Kaiss Hariri und Lukas Magedanz</h5>
+
+            <a href="../../index.html" class="button secondar
+            <div class="callout panel task">y">Zurück zur Übersicht</a>
+            <a href="screenshot-1.png" class="button secondary">Screenshot dieser Seite anzeigen</a>
+
+                Erstelle Differenzbilder für ein Videofile oder Live-Kamerabild, wie im Seminar anhand eines Beispiels erläutert.
+                <br>
+                5.1) Pixelweise Differenz zweier Bilder im Ergebnisbild
+                <br>
+                (auf "Null"-Pegel achten / negative Differenzen / Pixelwerte müssen positiv sein!)
+            </div>
+
+            <p>
+                Für die Schnitt-/Szenenerkennung haben wir uns für eine Implementierung auf Grundlage von Pixeldifferenzen entschieden. Die Umsetzung ist in der Funktion <kbd>diffImage()</kbd> im <a href="../videoassets/hariri-magedanz.js">Quellcode</a> zu finden. In der Funktion wird über alle Daten des aktuellen Bildes ("imageB") iteriert. Dabei wird von jedem Pixel ein Mittelwert errechnet und mit einem Mittelwert des entsprechenden Pixels aus dem vorherigen Bild ("imageA") verglichen. Die resultierende Differenz beider Pixel wird mit dem Schwellwert verglichen, welcher durch den Schieberegler (Werte von 1 bis 64) bestimmt werden kann. Wenn der Mittelwert beider Pixel den Schwellwert übersteigt, somit also eine Differenz erkannt wurde, wird dem Pixel der Vergleichsfarbwert zugewiesen. Der Vergleichsfarbwert ergibt sich aus der grau-skalierten Differenz des Vergleichs zweier Pixel. Ist der Mittelwert beider Pixel geringer als der Schwellwert, so wird das Pixel grau gefärbt.
+                <br>
+                Für dieses Verfahren werden also immer genau zwei Bilder benötigt, da wir das aktuelle Frame mit dem letzten Frame desselben Videos vergleichen. Dies funktioniert natürlich erst nach dem Durchlauf des ersten Frames. Somit findet die Berechnung erst mit dem zweiten Frame des Videos statt. Dies führt dazu, dass das Canvas-Objekt das Ursprungsvideo abspielt, allerdings um einen Frame versetzt.
+            </p>
+
+            <ul class="small-block-grid-2">
+                <li>
+                    <!-- video container - run javascript doLoad() when ready -->
+                    <video id="videoOne" muted="true" autobuffer="true" controls="true" loop autoplay>
+                        <!-- webm file for firefox, chrome -->
+                        <source src="tag.webm" type="video/webm" />
+                        <!-- mp4 file for safari, IE -->
+                        <source src="tag.mp4" type="video/mp4" />
+                        <!-- Alternate content: just print a message, no video available -->
+                        No HTML5-Video support? Try a newer browser! (Opera11, IE9, Firefox4, Safari5)
+                    </video>
+                </li>
+                <li>
+                    <canvas id="difference-canvas"></canvas>
+                </li>
+            </ul>
+            <canvas id="mirror-canvas" class="hidden"></canvas>
+
+            <div class="callout panel task">
+                5.2) Quantisierung der Differenzen (Teilen durch Parameter Q, Q einstellbar, 1..64)
+                <br>
+                Für die Berechnung genügt die Auswertung auf einem Farbkanal (RGB oder Y/Grauwerte)
+            </div>
+
+            <strong>Schwellwert: <span id="depth-value-txt"></span></strong>
+            <input id="depth-slider" class="expand" type="range" min="1" max="64" step="1" />
+
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+        </div>
+    </div>
+
+    <script data-main="scripts/task8-1" src="../videoassets/require.js"></script>
+</body>
+</html>
