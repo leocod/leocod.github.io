@@ -1,0 +1,30 @@
+<!DOCTYPE HTML>
+<html>
+  <body>
+    <canvas id="myCanvas" width="800" height="600"></canvas>
+    <script>
+
+    var init = function() {
+        canvas = document.getElementById("myCanvas");
+        ctx = canvas.getContext('2d');
+        radius =1;
+        colour = 0;
+        
+    }
+
+
+    var draw = function() {
+        ctx.fillStyle = 'hsl(' + colour++ +', 200%, 50%)';
+        ctx.beginPath();
+        ctx.arc(300,300,radius,0,5*Math.PI,false);
+        ctx.fill();
+        radius += 0.4;
+        if (radius <300){
+            requestAnimationFrame(draw);
+        }
+    }
+    init();
+    draw();
+    </script>
+  </body>
+</html>      
