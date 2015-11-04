@@ -25,10 +25,24 @@
     </style>
 
     <!-- Javascript image processing -->
-    <!-- <script type="text/javascript" src="script/processor.js"></script> -->
-
+    <script type="text/javascript" src="process.js"></script>
+    <!-- <meta charset="utf-8"/> -->
+      <!-- <script type="application/javascript"> -->
+		<!-- function draw() { -->
+		  <!-- var canvas = document.getElementById("difference-canvas"); -->
+		  <!-- if (canvas.getContext) { -->
+			<!-- var ctx = canvas.getContext("2d"); -->
+	
+			<!-- ctx.fillStyle = "rgb(200,0,0)"; -->
+			<!-- ctx.fillRect (10, 10, 55, 50); -->
+	
+			<!-- ctx.fillStyle = "rgba(0, 0, 200, 0.5)"; -->
+			<!-- ctx.fillRect (30, 30, 55, 50); -->
+		  <!-- } -->
+		<!-- } -->
+	 <!-- </script> -->
 </head>
-<body>
+<body onload="draw();">
 	<h1>Differenzbilder - Leonie Wismeth / Betty van Aken</h1>
     	<div>
 			<ul class="small-block-grid-2">
@@ -50,21 +64,7 @@
 					<canvas id="difference-canvas"></canvas>
 				</li>
 			</ul>
-            <!-- <canvas id="mirror-canvas" class="hidden"> </canvas> -->
-	<script type="application/javascript">
-		function draw() {
-		  var canvas = document.getElementById("canvas");
-		  if (canvas.getContext) {
-			var ctx = canvas.getContext("2d");
-	
-			ctx.fillStyle = "rgb(200,0,0)";
-			ctx.fillRect (10, 10, 55, 50);
-	
-			ctx.fillStyle = "rgba(0, 0, 200, 0.5)";
-			ctx.fillRect (30, 30, 55, 50);
-		  }
-		}
-	</script>
+            <canvas id="mirror-canvas" class="hidden"> </canvas>
             <strong>Schwellwert: <span id="depth-value-txt"></span></strong>
            <input id="depth-slider" class="expand" type="range" min="1" max="64" step="1" />
         </div>

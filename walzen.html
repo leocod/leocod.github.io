@@ -1,0 +1,29 @@
+<html>
+  <body>
+    <canvas id="myCanvas" width="1200" height="1000"></canvas>
+    <script>
+    // get the ctx
+    var canvas = document.getElementById("myCanvas");
+    var ctx = canvas.getContext('2d');
+    var frameCount = 0;
+    var N = 50;
+
+    var draw = function(){
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        for (j=0; j<N; j++){
+            for (i=0; i<N; i++){
+                ctx.save();
+                ctx.translate(60*j,30*i);
+                ctx.rotate(frameCount*0.08 + i);
+                ctx.fillRect(20, 20, 7, 5);
+                ctx.restore();
+            }
+        }
+
+            frameCount = frameCount+1;
+            requestAnimationFrame(draw);
+    }
+    draw();
+    </script>
+  </body>
+</html>

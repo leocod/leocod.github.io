@@ -1,0 +1,32 @@
+<!DOCTYPE HTML>
+<html>
+  <body>
+    <canvas id="myCanvas" width="800" height="600"></canvas>
+    <script>
+
+    var init = function() {
+        canvas = document.getElementById("myCanvas");
+        ctx = canvas.getContext('2d');
+        x =1;
+        
+    }
+    
+    var draw = function() {
+        ctx.strokeStyle = "rgba(20,30,10,0.6)";
+        ctx.beginPath();
+        ctx.translate(150, 150);
+        ctx.rotate(Math.PI/180);    
+        ctx.translate(-150, -150);  
+        ctx.rect(200,200,30+x,30+x);
+        ctx.stroke();
+        x += 0.4;
+        if (x <500){
+            requestAnimationFrame(draw);      
+        }
+    }
+    init();
+    draw();
+    </script>
+    
+  </body>
+</html>      
