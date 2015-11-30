@@ -1,0 +1,123 @@
+<html>
+    <head>
+        <script>
+            var N_parts = 200;
+            var parts = [];
+            var colour = 0;
+            
+            var WIDTH = 600;
+            var HEIGHT = 600;
+            
+            var forceField1 = [];
+            var forceField2 = [];
+            
+            var forceField1 = [];
+            var forceField2 = [];
+            
+            var calcLength = function (v0) {
+              return Math.sqrt(v0.x*v0.x + v0.y*v0.y);
+            }
+            
+            var init = function() {
+                canvas = document.getElementById("canvas");
+                ctx = canvas.getContext('2d');
+                frameCount = 0;
+                var    centers = [{x:100,y:300},{x:200,y:300},{x:300,y:300},{x:400,y:300}];
+                
+                for (i=0; i<WIDTH; i++){
+                    forceField1[i] = [];
+                    forceField2[i] = [];
+                   for (j=0; j<HEIGHT; j++){
+                       forceField2[i][j] = {x:0, y:1};
+                       forceField1[i][j] = {x:1, y:0};
+                    }
+                }        
+                for (i=0; i<N_parts; i++){           
+                    parts[i] = [];
+                    for (j=0; j<N_parts; j++){    
+                        parts[i][j] = {};
+                        parts[i][j].position = {};
+                        parts[i][j].position.x = i;
+                        parts[i][j].position.y = j;
+                        
+                        parts[i][j].velocity = {};
+                        parts[i][j].velocity.x = 0;
+                        parts[i][j].velocity.y = 0;
+                        
+                    }
+                }
+            }
+                
+            var  updateVelocity = function(part) {
+
+                 var part = parts[i][j];
+
+                  var dampen = 0.5;
+                  x = Math.floor(part.position.x);
+                  y = Math.floor(part.position.y);
+
+                  part.velocity.x += forceField1[x][y].x;
+                  part.velocity.y += forceField1[x][y].y;
+
+                  part.velocity.x += forceField2[x][y].x;
+                  part.velocity.y += forceField2[x][y].y;
+
+                  var nextPosition = {};
+                  nextPosition.x = part.position.x + part.velocity.x;
+                  nextPosition.y = part.position.y + part.velocity.y;    
+
+                  if (nextPosition.x>800 || nextPosition.x<0) {
+                    part.velocity.x *= -1;
+                  }
+                  if (nextPosition.y>800 || nextPosition.y<0) {
+                    part.velocity.y *= -1;
+                  }
+
+                  part.velocity.x *= dampen;
+                  part.velocity.y *= dampen;
+
+            };
+
+            var  updatePositions = function(part) {
+
+                  var part = parts[i][j];
+                  part.position.x += part.velocity.x;
+                  part.position.y += part.velocity.y;
+                  ctx.save();
+
+            };
+
+            var draw = function() {
+
+              ctx.clearRect (0, 0, canvas.width, canvas.height);
+              for (i=0; i<N_parts; i++) {
+                for (j=0; j<N_parts; j++) {
+                    var part = parts[i][j];        
+                    updateVelocity(part);
+                    updatePositions(part);
+                    S = 5;
+                    d = 10;
+                    ctx.fillStyle = 'hsl(' + 360 * Math.random() + ', 100%, 50%)';
+                    ctx.translate(part.position.x*d, part.position.y*d);
+                    ctx.fillRect(0,0,S,S);
+                    ctx.restore();
+                }
+              }
+
+              frameCount = frameCount+1;
+              requestAnimationFrame(draw);
+            };    
+        </script>
+    </head>
+    <body>
+        
+        <canvas id = "canvas" width="600" height ="600"></canvas>
+        
+        <script>
+            init();
+            draw();
+        </script>
+    
+    </body>
+
+</html>
